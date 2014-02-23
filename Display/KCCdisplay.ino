@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : sön 23 feb 2014 17:16:07
+ * Last Modified : sön 23 feb 2014 18:00:01
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -27,33 +27,39 @@ void printNumber(int v) {
 	int ones;
 	int tens;
 	int hundreds;
+	int thousands;
+	int tenthousands;
 	bool negative;
 
 	if(v<0) {
 		negative=true;
-		v=v*-1;
+		v= v*-1;
 	}
 	// Convert in to groups
 	ones = v%10;
 	v=v/10;
+
 	tens=v%10;
 	v=v/10;
-	hundreds=v;
+
+	hundreds=v%10;
+	v=v/10;
+
 	if(negative) {
 		altitudeDisplay.setChar(0,7,'-',false);
 	} else {
-		altitudeDisplay.setChar(0,7,' ',false);
+		altitudeDisplay.setChar(0,7,0,false);
 	}
 
-	altitudeDisplay.setDigit(0,2,(byte)hundreds,false);
-	altitudeDisplay.setDigit(0,1,(byte)tens,false);
-	altitudeDisplay.setDigit(0,0,(byte)ones,false);
+	altitudeDisplay.setDigit(0,2,hundreds,false);
+	altitudeDisplay.setDigit(0,1,tens,false);
+	altitudeDisplay.setDigit(0,0,ones,false);
 }
 
 void loop() {
 	// Just a simple counter for now
-	for(int i=-998; i>998;i++) {
+	for(int i=-999; i<999;i++) {
 		printNumber(i);
-		delay(500);
+		delay(10);
 	}
 }
