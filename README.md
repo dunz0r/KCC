@@ -1,4 +1,4 @@
 KCC
 ===
 
-A joystick/keyboard for play KCC
+A joystick/keyboard for playing KCC
