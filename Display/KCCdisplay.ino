@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : sön 23 feb 2014 20:20:18
+ * Last Modified : ons 26 feb 2014 19:31:04
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -36,7 +36,7 @@ void showNumber(const int num) {
 	for(byte digit=0;digit < 7; digit++) {
 		byte c = buf[digit];
 		if(c == ' ')
-			c = 0xF; // Code for a blank
+			c = 0xFF; // Code for a blank
 		else
 			c -= '0';
 		sendByte(digit +1, c);
