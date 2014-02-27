@@ -5,13 +5,17 @@ using System.Text;
 using UnityEngine;
 
 
-// <summary>
-// Outputs data
-// </summary>
+/// <summary>
+/// Outputs data
+///jj </summary>
 public class Testmodule : PartModule
 {
+	/// <summary>
+	/// Raises the start event.
+	/// </summary>
+	/// <param name="state">State.</param>
 	public override void OnStart(StartState state)
 	{
-		print ("something to log");
+		print ("Plugin loaded");
 	}
 }
