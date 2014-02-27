@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : tor 27 feb 2014 15:09:27
+ * Last Modified : tor 27 feb 2014 15:11:50
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -59,7 +59,7 @@ void printNumber(unsigned long v) {
 }
 
 void loop() {
-	for(unsigned long i=0;i>9999999;i++) {
+	for(unsigned long i=0;i<9999999;i++) {
 		printNumber(i);
 	}
 }
