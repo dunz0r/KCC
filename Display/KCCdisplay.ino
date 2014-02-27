@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : tor 27 feb 2014 15:05:19
+ * Last Modified : tor 27 feb 2014 15:09:27
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -21,7 +21,7 @@ void setup() {
 	display.clearDisplay(0);
 }
 
-void printNumber(long v) {
+void printNumber(unsigned long v) {
 	int ones;
 	int tens;
 	int hundreds;
@@ -29,14 +29,8 @@ void printNumber(long v) {
 	int tenThousands;
 	int hundredThousands;
 	int millions;
-	boolean negative;	
+	int tenMillions;
 
-	if(v < -9999999 || v > 9999999) 
-		return;
-	if(v<0) {
-		negative=true;
-		v=v*-1;
-	}
 	ones=v%10;
 	v=v/10;
 	tens=v%10;
@@ -49,29 +43,23 @@ void printNumber(long v) {
 	v=v/10;
 	hundredThousands=v%10;
 	v=v/10;
-	millions=v;
+	millions=v%10;
+	v=v/10;
+	tenMillions=v;
 
-	if(negative) {
-		//print character '-' in the leftmost column	
-		lc.setChar(0,7,'-',false);
-	}
-	else {
-		//print a blank in the sign column
-		lc.setChar(0,7,' ',false);
-	}
 	//Now print the number digit by digit
-	lc.setDigit(0,6,(byte)millions,false);
-	lc.setDigit(0,5,(byte)hundredThousands,false);
-	lc.setDigit(0,4,(byte)tenThousands,false);
-	lc.setDigit(0,3,(byte)thousands,false);
-	lc.setDigit(0,2,(byte)hundreds,false);
-	lc.setDigit(0,1,(byte)tens,false);
-	lc.setDigit(0,0,(byte)ones,false);
+	display.setDigit(0,7,(byte)tenMillions,false);
+	display.setDigit(0,6,(byte)millions,false);
+	display.setDigit(0,5,(byte)hundredThousands,false);
+	display.setDigit(0,4,(byte)tenThousands,false);
+	display.setDigit(0,3,(byte)thousands,false);
+	display.setDigit(0,2,(byte)hundreds,false);
+	display.setDigit(0,1,(byte)tens,false);
+	display.setDigit(0,0,(byte)ones,false);
 }
 
 void loop() {
-	for(int i=0;i>9999;i++) {
+	for(unsigned long i=0;i>9999999;i++) {
 		printNumber(i);
-		delay(10);
 	}
 }
