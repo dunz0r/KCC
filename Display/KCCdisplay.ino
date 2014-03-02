@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : tor 27 feb 2014 15:11:50
+ * Last Modified : mån  3 mar 2014 00:48:00
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -22,40 +22,13 @@ void setup() {
 }
 
 void printNumber(unsigned long v) {
-	int ones;
-	int tens;
-	int hundreds;
-	int thousands;
-	int tenThousands;
-	int hundredThousands;
-	int millions;
-	int tenMillions;
+	int onDisplay[8];
 
-	ones=v%10;
-	v=v/10;
-	tens=v%10;
-	v=v/10;
-	hundreds=v%10;
-	v=v/10;
-	thousands=v%10;
-	v=v/10;
-	tenThousands=v%10;
-	v=v/10;
-	hundredThousands=v%10;
-	v=v/10;
-	millions=v%10;
-	v=v/10;
-	tenMillions=v;
-
-	//Now print the number digit by digit
-	display.setDigit(0,7,(byte)tenMillions,false);
-	display.setDigit(0,6,(byte)millions,false);
-	display.setDigit(0,5,(byte)hundredThousands,false);
-	display.setDigit(0,4,(byte)tenThousands,false);
-	display.setDigit(0,3,(byte)thousands,false);
-	display.setDigit(0,2,(byte)hundreds,false);
-	display.setDigit(0,1,(byte)tens,false);
-	display.setDigit(0,0,(byte)ones,false);
+	for(int i=0;i<sizeof(onDisplay);i++){
+		onDisplay[i] = v%10;
+		v /= 10;
+		display.setDigit(0,i,(byte)onDisplay[i],false);
+	}
 }
 
 void loop() {

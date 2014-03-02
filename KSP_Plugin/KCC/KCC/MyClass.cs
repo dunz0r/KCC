@@ -16,6 +16,6 @@ public class Testmodule : PartModule
 	/// <param name="state">State.</param>
 	public override void OnStart(StartState state)
 	{
-		print ("Plugin loaded");
+		print ("Cool plugin loaded");
 	}
 }
