@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : sön 23 feb 2014 15:52:19
+ * Last Modified : lör  8 mar 2014 18:50:44
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -53,12 +53,6 @@ void loop() {
 						break;
 					case IDLE:
 						msg = " IDLE.";
-				}
-				Serial.print("Key ");
-				Serial.print(keypad.key[i].kchar);
-				Serial.println(msg);
-			}
 		}
 	}
 }
-
