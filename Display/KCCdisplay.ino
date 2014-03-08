@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : mån  3 mar 2014 00:48:00
+ * Last Modified : lör  8 mar 2014 14:41:47
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -10,16 +10,8 @@
 
 // For controlling the display
 #include "LedControl.h"
+// 12->DATA IN, 11-> CLK, 10-> LOAD/CS
 LedControl display=LedControl(12,11,10,1);
-void setup() {
-
-	// Enable the display
-	display.shutdown(0,false);
-	// Set brightness
-	display.setIntensity(0,8);
-	// Clear the display
-	display.clearDisplay(0);
-}
 
 void printNumber(unsigned long v) {
 	int onDisplay[8];
@@ -31,8 +23,23 @@ void printNumber(unsigned long v) {
 	}
 }
 
+void setup() {
+
+	// Enable the display
+	display.shutdown(0,false);
+	// Set brightness
+	display.setIntensity(0,8);
+	// Clear the display
+	display.clearDisplay(0);
+
+	Serial.begin(38400);
+
+	printNumber(3400);
+}
+
 void loop() {
-	for(unsigned long i=0;i<9999999;i++) {
-		printNumber(i);
+	if(Serial.available() > 0){
+		unsigned long incomingByte = Serial.read();
+		printNumber(incomingByte);
 	}
 }

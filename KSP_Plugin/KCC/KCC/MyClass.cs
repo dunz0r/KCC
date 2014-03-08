@@ -8,14 +8,31 @@ using UnityEngine;
 /// <summary>
 /// Outputs data
 ///jj </summary>
-public class Testmodule : PartModule
+public class Coolpart : PartModule
 {
 	/// <summary>
 	/// Raises the start event.
 	/// </summary>
 	/// <param name="state">State.</param>
+	private Rect _windowPosition = new Rect();
 	public override void OnStart(StartState state)
 	{
-		print ("Cool plugin loaded");
+		if (state != StartState.Editor)
+			RenderingManager.AddToPostDrawQueue (0, onDraw);
+ 	}
+
+	private void onDraw()
+	{
+		if (this.vessel == FlightGlobals.ActiveVessel)
+			_windowPosition = GUILayout.Window (10, _windowPosition, OnWindow, "Cool title");
+	}
+
+	private void OnWindow(int windowId)
+	{
+		GUILayout.BeginHorizontal (GUILayout.Width (250f));
+		GUILayout.Label ("This is a label");
+		GUILayout.EndHorizontal ();
+
+		GUI.DragWindow ();
 	}
 }

@@ -2,11 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.Workbench ActiveDocument="KCC/MyClass.cs">
     <Files>
-      <File FileName="KCC/MyClass.cs" Line="5" Column="7" />
+      <File FileName="KCC/MyClass.cs" Line="36" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Gabriel Fornaeus" Email="" Copyright="gabriel" Company="" Trademark="" />
 </Properties>
