@@ -1,2 +1,5 @@
 BOARD_TAG = leonardo
-include /home/gabriel/Arduino-Makefile/Arduino.mk
+ARDUINOLIBS = Keypad
+MONITOR_PORT = /dev/ttyACM0
+ARDUINO_SKETCHBOOK = /home/gabriel/Development/Arduino
+include /usr/share/arduino/Arduino.mk
