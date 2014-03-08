@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : lör  8 mar 2014 14:41:47
+ * Last Modified : lör  8 mar 2014 17:56:42
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -13,6 +13,10 @@
 // 12->DATA IN, 11-> CLK, 10-> LOAD/CS
 LedControl display=LedControl(12,11,10,1);
 
+const int maxChars = 9;
+char strValue[maxChars + 1];
+int index = 0;
+unsigned long incomingNumber = 0;
 void printNumber(unsigned long v) {
 	int onDisplay[8];
 
@@ -33,13 +37,11 @@ void setup() {
 	display.clearDisplay(0);
 
 	Serial.begin(38400);
-
-	printNumber(3400);
 }
 
 void loop() {
-	if(Serial.available() > 0){
-		unsigned long incomingByte = Serial.read();
-		printNumber(incomingByte);
+	while(Serial.available()){
+	unsigned long incomingNumber = Serial.parseInt();
+	printNumber(incomingNumber);
 	}
 }
