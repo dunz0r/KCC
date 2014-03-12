@@ -4,7 +4,7 @@ import re
 import time
 
 url = 'http://localhost:8085/telemachus/datalink?a=v.altitude'
-ser = serial.Serial('/dev/ttyACM0', 38400, timeout = 1)
+ser = serial.Serial('/dev/ttyACM1', 38400, timeout = 1)
 
 def toSerial(value):
     ser.write(value)
@@ -21,6 +21,5 @@ def formatData(data):
 while(1>0):
     content = getContent()
     content = formatData(content)
-    print(re.sub('\..', 'S', content))
     toSerial(re.sub('\..', 'S', content))
     time.sleep(0.05)
