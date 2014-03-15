@@ -1,25 +1,25 @@
 import serial
 import requests
-import re
+import json
 import time
 
-url = 'http://localhost:8085/telemachus/datalink?a=v.altitude'
-ser = serial.Serial('/dev/ttyACM1', 38400, timeout = 1)
+url = 'http://localhost:8085/telemachus/datalink?al=v.altitude&ve=v.orbitalVelocity&cM=r.resourceMax[ElectricCharge]&cC=r.resource[ElectricCharge]'
+ser = serial.Serial('/dev/ttyACM0', 38400, timeout = 1)
 
 def toSerial(value):
     ser.write(value)
 
 def getContent():
     r = requests.get(url)
-    output = re.sub('[{}:a"]+', '',r.content)
-    return output
+    return r.content
 
 def formatData(data):
-    output = str(round(float(data),1))
+    output = str(int(data)) + 's'
     return output
 
 while(1>0):
     content = getContent()
-    content = formatData(content)
-    toSerial(re.sub('\..', 'S', content))
-    time.sleep(0.05)
+    content = json.loads(content)
+    dataRequested = ser.read(2)
+    toSerial(formatData(content[dataRequested]))
+    time.sleep(0.01)
