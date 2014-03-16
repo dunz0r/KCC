@@ -3,8 +3,8 @@ import requests
 import json
 import time
 
-url = 'http://localhost:8085/telemachus/datalink?al=v.altitude&ve=v.orbitalVelocity&cM=r.resourceMax[ElectricCharge]&cC=r.resource[ElectricCharge]'
-ser = serial.Serial('/dev/ttyACM0', 38400, timeout = 1)
+url = 'http://localhost:8085/telemachus/datalink?al=v.altitude&ve=v.orbitalVelocity&cM=r.resourceMax[ElectricCharge]&cC=r.resource[ElectricCharge]&fC=r.resource[fuel]&fM=r.resourceMax[fuel]'
+#ser = serial.Serial('/dev/ttyACM0', 38400, timeout = 1)
 
 def toSerial(value):
     ser.write(value)
