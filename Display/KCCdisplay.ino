@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : lör 15 mar 2014 23:46:23
+ * Last Modified : tis 25 mar 2014 15:13:49
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -10,7 +10,7 @@
 
 // For controlling the display
 #include "LedControl.h"
-// 12->DATA IN, 11-> CLK, 10-> LOAD/CS
+// 12->DATA IN, 11-> CLK, 10-> LOAD/CS, number of displays
 LedControl display=LedControl(12,11,10,2);
 
 void printNumber(uint32_t v, int address) {
@@ -69,7 +69,7 @@ uint32_t getVelocity() {
 
 	Serial.print("ve");
 	velocity = Serial.parseInt();
-	return velocity;
+	return velocity/10;
 }
 
 uint32_t getAltitude() {
@@ -84,8 +84,6 @@ void loop() {
 	int chargePercent = getCharge();
 	int fuelPercent = getFuel();
 	analogWrite(6,chargePercent);
-	if(digitalRead(7))
-		printNumber(getVelocity(), 0);
-	else
-		printNumber(getAltitude(), 0);
+	printNumber(getVelocity(), 0);
+	printNumber(getAltitude(), 1);
 }
