@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : fre 18 apr 2014 22:11:41
+ * Last Modified : fre 18 apr 2014 23:17:34
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -12,6 +12,9 @@
 #include "LedControl.h"
 // 12->DATA IN, 11-> CLK, 10-> LOAD/CS, number of displays
 LedControl display=LedControl(12,11,10,2);
+
+// This switch is connected to three resistors, giving three different modes
+#define VEL_SWITCH A0
 
 void printDecimalNumber(uint32_t v, int address) {
 	int onDisplay[8];
@@ -97,11 +100,25 @@ uint32_t getAltitude() {
 	return altitude;
 }
 
+short getVelocityMode() {
+	// This is what gets returned
+	short mode = 0;
+	int buttonReading = analogRead(VEL_SWITCH);
+
+	if(VEL_SWITCH > 600)
+		mode = 0;
+	else if((VEL_SWITCH < 600) && (VEL_SWITCH > 300))
+		mode = 1;
+	else
+		mode = 2;
+}
+
 void loop() {
 	int chargePercent = getCharge();
 	int fuelPercent = getFuel();
+	velocityMode = getVelocityMode();
 	analogWrite(6,chargePercent);
 	analogWrite(3,fuelPercent);
 	printDecimalNumber(getAltitude(), 1);
-	printDecimalNumber(getVelocity(0), 0);
+	printDecimalNumber(getVelocity(velocityMode), 0);
 }
