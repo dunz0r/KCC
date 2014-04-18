@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : tis 25 mar 2014 15:13:49
+ * Last Modified : fre 18 apr 2014 22:11:41
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -13,13 +13,18 @@
 // 12->DATA IN, 11-> CLK, 10-> LOAD/CS, number of displays
 LedControl display=LedControl(12,11,10,2);
 
-void printNumber(uint32_t v, int address) {
+void printDecimalNumber(uint32_t v, int address) {
 	int onDisplay[8];
 
 	for(unsigned int i=0;i<sizeof(onDisplay);i++){
 		onDisplay[i] = v%10;
 		v /= 10;
-		display.setDigit(address,i,(byte)onDisplay[i],false);
+		// The first character printed will be the decimal number, so put the decimal point 
+		// so put the decimal point on the second character
+		if(i == 1)
+			display.setDigit(address,i,(byte)onDisplay[i],true);
+		else if( i != 1)
+			display.setDigit(address,i,(byte)onDisplay[i],false);
 	}
 }
 
@@ -39,9 +44,9 @@ void setup() {
 }
 
 int getFuel() {
-	int fuelCurrent;
-	int fuelMax;
-	int percent;
+	unsigned int fuelCurrent=0;
+	unsigned int fuelMax=0;
+	float percent;
 
 	Serial.print("fC");
 	fuelCurrent = Serial.parseInt();
@@ -52,8 +57,8 @@ int getFuel() {
 }
 
 int getCharge() {
-	int chargeCurrent=0;
-	int chargeMax=0;
+	unsigned int chargeCurrent=0;
+	unsigned int chargeMax=0;
 	float percent;
 
 	Serial.print("cC");
@@ -64,11 +69,23 @@ int getCharge() {
 	return (int)(percent*255);
 }
 
-uint32_t getVelocity() {
+uint32_t getVelocity(short mode) {
 	uint32_t velocity;
 
-	Serial.print("ve");
-	velocity = Serial.parseInt();
+	switch(mode) {
+		case 0:
+			Serial.print("sV");
+			velocity = Serial.parseInt();
+		case 1:
+			Serial.print("oV");
+			velocity = Serial.parseInt();
+		case 2:
+			Serial.print("tV");
+			velocity = Serial.parseInt();
+		default:
+			Serial.print("sV");
+			velocity = Serial.parseInt();
+	}
 	return velocity/10;
 }
 
@@ -84,6 +101,7 @@ void loop() {
 	int chargePercent = getCharge();
 	int fuelPercent = getFuel();
 	analogWrite(6,chargePercent);
-	printNumber(getVelocity(), 0);
-	printNumber(getAltitude(), 1);
+	analogWrite(3,fuelPercent);
+	printDecimalNumber(getAltitude(), 1);
+	printDecimalNumber(getVelocity(0), 0);
 }
