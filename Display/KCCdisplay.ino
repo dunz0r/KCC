@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : mån 21 apr 2014 14:08:24
+ * Last Modified : tis 22 apr 2014 04:56:12
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -108,7 +108,7 @@ uint32_t getAltitude() {
 	return altitude/10;
 }
 
-int32_t getLong(char* sendString, bool decimalPoint) {
+int32_t getLong(String sendString, bool decimalPoint) {
 	int32_t returnValue;
 	Serial.print(sendString);
 	returnValue = Serial.parseInt();
@@ -118,17 +118,17 @@ int32_t getLong(char* sendString, bool decimalPoint) {
 	return returnValue;
 }
 
-char* getVelocityMode() {
+String getVelocityMode() {
 	// This is what gets returned
-	char* mode = 'aa';
+	String mode = "aa";
 	int switchReading = analogRead(VEL_SWITCH);
 
 	if(switchReading > 600)
-		mode = 'oV';
+		mode = "oV";
 	else if((VEL_SWITCH < 600) && (VEL_SWITCH > 300))
-		mode = 'tV';
+		mode = "tV";
 	else
-		mode = 'sV';
+		mode = "sV";
 	return mode;
 }
 
@@ -138,9 +138,9 @@ void loop() {
 	analogWrite(6,chargePercent);
 	analogWrite(3,fuelPercent);
 	// Apoapsis
-	printDecimalNumber(getLong('ap', false), 2, false);
+	printDecimalNumber(getLong("ap", false), 2, false);
 	// Altitude
-	printDecimalNumber(getLong('al', false), 1, false);
+	printDecimalNumber(getLong("al", false), 1, false);
 	// Velocity
-	printDecimalNumber(getLong(getVelocityMode, true), 0, true);
+	printDecimalNumber(getLong(getVelocityMode(), true), 0, true);
 }
