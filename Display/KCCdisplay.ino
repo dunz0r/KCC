@@ -2,7 +2,7 @@
  * File Name :
  * Purpose :
  * Creation Date :
- * Last Modified : tis 22 apr 2014 04:56:12
+ * Last Modified : tis 29 apr 2014 19:22:33
  * Created By : Gabriel Fornaeus, <gf@hax0r.se>
  *
  */
@@ -123,9 +123,9 @@ String getVelocityMode() {
 	String mode = "aa";
 	int switchReading = analogRead(VEL_SWITCH);
 
-	if(switchReading > 600)
+	if(switchReading < 658)
 		mode = "oV";
-	else if((VEL_SWITCH < 600) && (VEL_SWITCH > 300))
+	else if((VEL_SWITCH > 658) && (VEL_SWITCH < 840))
 		mode = "tV";
 	else
 		mode = "sV";
